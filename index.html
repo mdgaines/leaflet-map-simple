@@ -8,18 +8,19 @@
   <!-- Load Leaflet code library: see http://leafletjs.com/download.html -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="./geojson/wake_county.geojson" type="text/javascript"></script>
 
   <!-- Position the map and title with Cascading Style Sheet (CSS) -->
   <style>
   body { margin:0; padding:0; }
   #map { position: absolute; top:0; bottom:0; right:0; left:0; }
-  #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: white; border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: Helvetica; font-weight: bold; font-size: 24px; z-index: 800; }
+  #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: gray; border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: 'Times New Roman', Times, serif; font-weight: bold; font-size: 24px; z-index: 800; }
   </style>
 </head>
 <body>
 
   <!-- Display the map and title with HTML division tags  -->
-  <div id="map-title">EDIT map title</div>
+  <div id="map-title">Raleigh, NC</div>
   <div id="map"></div>
 
   <!-- Create the interactive map content with JavaScript (.js) -->
@@ -27,23 +28,33 @@
 
   /* Set up the initial map center and zoom level */
   var map = L.map('map', {
-    center: [41.77, -72.69], // EDIT coordinates to re-center map
-    zoom: 12,  // EDIT from 1 (zoomed out) to 18 (zoomed in)
-    scrollWheelZoom: false,
-    tap: false
+    center: [35.7796, -78.6382], // EDIT coordinates to re-center map
+    zoom: 11,  // EDIT from 1 (zoomed out) to 18 (zoomed in)
+    scrollWheelZoom: true,
+    tap: true
   });
 
   /* display basemap tiles -- see others at https://leaflet-extras.github.io/leaflet-providers/preview/ */
   L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://osm.org/copyright">\
         OpenStreetMap</a> contributors, &copy;\
         <a href="https://carto.com/attribution">CARTO</a>'
   }).addTo(map);
 
   /* Display a point marker with pop-up text */
-  L.marker([41.77, -72.69]).addTo(map) // EDIT marker coordinates
-  .bindPopup("Insert pop-up text here"); // EDIT pop-up text message
+  L.marker([35.7847, -78.6821]).addTo(map) // NCSU marker coordinates
+  .bindPopup("NC State University"); // NCSU pop-up text message
+
+  /* Display a point marker with pop-up text */
+  L.marker([35.7818, -78.6763]).addTo(map) // Jordan Hall marker coordinates
+  .bindPopup("Jordan Hall"); // Jordan Hall pop-up text message
+
+  // loading GeoJSON file - Here my html and wake_county.geojson file resides in the geojson folder
+  // $.getJSON("geojson/wake_county.geojson",function(data){
+    // L.geoJson function is used to parse geojson file and load on to map
+  L.geoJson(wake_county).addTo(map);
+  // });
 
   </script>
 </body>
